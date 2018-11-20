@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node2D
+
+onready var line = $Line2D
+
+func _process(delta):
+	line.modulate.a -= delta
+	if line.modulate.a <= 0: queue_free()"
+
+[node name="RailgunBullet" type="Node2D"]
+z_index = -1
+script = SubResource( 1 )
+_sections_unfolded = [ "Z Index" ]
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PoolVector2Array( 0, 0, 1000, 0 )
+width = 10.0
+default_color = Color( 0.4, 0.5, 1, 1 )
+sharp_limit = 2.0
+round_precision = 8
+_sections_unfolded = [ "points" ]
+

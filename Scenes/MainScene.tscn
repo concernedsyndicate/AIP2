@@ -1,0 +1,250 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Sprites/Background.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/MapSettings.gd" type="Script" id=2]
+[ext_resource path="res://Nodes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Nodes/Obstacle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Nodes/Monster.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/UI.gd" type="Script" id=6]
+[ext_resource path="res://Resources/UIFont.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Resources/BigFont.tres" type="DynamicFont" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 1, 1 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 1, 1 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 1, 1 )
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 1, 1 )
+
+[node name="Game" type="Node2D"]
+
+[node name="Background" type="Sprite" parent="."]
+z_index = -4096
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 3000, 3000 )
+
+[node name="MapBoundary" type="StaticBody2D" parent="."]
+editor/display_folded = true
+input_pickable = false
+collision_layer = 3
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+script = ExtResource( 2 )
+bounds = Rect2( 0, 0, 3000, 3000 )
+
+[node name="Edge" type="CollisionShape2D" parent="MapBoundary"]
+shape = SubResource( 1 )
+
+[node name="Edge2" type="CollisionShape2D" parent="MapBoundary"]
+shape = SubResource( 2 )
+
+[node name="Edge3" type="CollisionShape2D" parent="MapBoundary"]
+shape = SubResource( 3 )
+
+[node name="Edge4" type="CollisionShape2D" parent="MapBoundary"]
+shape = SubResource( 4 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 578, 279 )
+speed = 360
+rotation_speed = 2.5
+
+[node name="Obstacles" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="Obstacle" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 379.234, 105.524 )
+
+[node name="Obstacle2" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 914.063, 923.497 )
+radius = 256
+
+[node name="Obstacle3" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 1568.62, 377.59 )
+radius = 192
+
+[node name="Obstacle4" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 328.405, 1620.46 )
+radius = 64
+
+[node name="Obstacle5" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 779.043, 1862.14 )
+radius = 96
+
+[node name="Obstacle6" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 1292.62, 1431.64 )
+radius = 96
+
+[node name="Obstacle7" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 1672.77, 2242.29 )
+radius = 256
+
+[node name="Obstacle17" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 1002.65, 2446.83 )
+
+[node name="Obstacle18" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 439.671, 2661.11 )
+radius = 192
+
+[node name="Obstacle19" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 2247.43, 582.575 )
+radius = 192
+
+[node name="Obstacle8" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 2324.81, 1341.01 )
+radius = 384
+
+[node name="Obstacle9" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 2480.89, 2244.8 )
+radius = 64
+
+[node name="Obstacle10" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 2312.22, 2700.48 )
+radius = 32
+
+[node name="Obstacle11" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 1823.82, 2798.66 )
+radius = 16
+
+[node name="Obstacle12" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 1441.15, 2763.42 )
+radius = 16
+
+[node name="Obstacle13" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 1582.7, 2681.9 )
+radius = 16
+
+[node name="Obstacle14" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 1580.76, 2886.44 )
+radius = 16
+
+[node name="Obstacle15" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 1849.58, 2615.66 )
+radius = 16
+
+[node name="Obstacle16" parent="Obstacles" instance=ExtResource( 4 )]
+position = Vector2( 2102.83, 2820.21 )
+radius = 16
+
+[node name="Monsters" type="Node2D" parent="."]
+
+[node name="Monster" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 978.572, 432.545 )
+
+[node name="Monster12" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 671.301, 1474.92 )
+
+[node name="Monster15" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 1641.08, 1774.25 )
+
+[node name="Monster16" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 2606.54, 825.213 )
+
+[node name="Monster2" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 1599.57, 972.153 )
+
+[node name="Monster13" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 2860.04, 2455.63 )
+
+[node name="Monster14" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 2068.18, 2396.6 )
+
+[node name="Monster17" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 2922.87, 1420.53 )
+
+[node name="Monster3" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 84.4478, 1879.42 )
+
+[node name="Monster4" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 2753.21, 2894.26 )
+
+[node name="Monster5" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 800.363, 2943.21 )
+
+[node name="Monster6" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 92.1429, 2657.76 )
+
+[node name="Monster7" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 2486.24, 1931.16 )
+
+[node name="Monster8" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 2202.75, 172.877 )
+
+[node name="Monster9" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 1151.1, 106.608 )
+
+[node name="Monster10" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 782.832, 2200.13 )
+
+[node name="Monster11" parent="Monsters" instance=ExtResource( 5 )]
+position = Vector2( 1683.46, 2758.11 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+script = ExtResource( 6 )
+
+[node name="ZombieCounter" type="Label" parent="UI"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 32.0
+margin_top = 29.0
+margin_right = 317.0
+margin_bottom = 66.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "Zombies left: 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="YouWon" type="Label" parent="UI"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -308.0
+margin_top = -72.5
+margin_right = 308.0
+margin_bottom = 72.5
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 1, 0.819608, 0, 1 )
+text = "YOU WON!"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
