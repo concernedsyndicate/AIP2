@@ -45,6 +45,7 @@ collision_layer = 3
 collision_mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
+physics_material_override = null
 script = ExtResource( 2 )
 bounds = Rect2( 0, 0, 3000, 3000 )
 
@@ -66,131 +67,13 @@ speed = 360
 rotation_speed = 2.5
 
 [node name="Obstacles" type="Node2D" parent="."]
-editor/display_folded = true
-
-[node name="Obstacle" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 379.234, 105.524 )
-
-[node name="Obstacle2" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 914.063, 923.497 )
-radius = 256
-
-[node name="Obstacle3" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 1568.62, 377.59 )
-radius = 192
-
-[node name="Obstacle4" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 328.405, 1620.46 )
-radius = 64
-
-[node name="Obstacle5" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 779.043, 1862.14 )
-radius = 96
-
-[node name="Obstacle6" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 1292.62, 1431.64 )
-radius = 96
-
-[node name="Obstacle7" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 1672.77, 2242.29 )
-radius = 256
-
-[node name="Obstacle17" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 1002.65, 2446.83 )
-
-[node name="Obstacle18" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 439.671, 2661.11 )
-radius = 192
-
-[node name="Obstacle19" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 2247.43, 582.575 )
-radius = 192
-
-[node name="Obstacle8" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 2324.81, 1341.01 )
-radius = 384
-
-[node name="Obstacle9" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 2480.89, 2244.8 )
-radius = 64
-
-[node name="Obstacle10" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 2312.22, 2700.48 )
-radius = 32
-
-[node name="Obstacle11" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 1823.82, 2798.66 )
-radius = 16
-
-[node name="Obstacle12" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 1441.15, 2763.42 )
-radius = 16
-
-[node name="Obstacle13" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 1582.7, 2681.9 )
-radius = 16
-
-[node name="Obstacle14" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 1580.76, 2886.44 )
-radius = 16
-
-[node name="Obstacle15" parent="Obstacles" instance=ExtResource( 4 )]
-position = Vector2( 1849.58, 2615.66 )
-radius = 16
 
 [node name="Obstacle16" parent="Obstacles" instance=ExtResource( 4 )]
 position = Vector2( 2102.83, 2820.21 )
+physics_material_override = null
 radius = 16
 
 [node name="Monsters" type="Node2D" parent="."]
-
-[node name="Monster" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 978.572, 432.545 )
-
-[node name="Monster12" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 671.301, 1474.92 )
-
-[node name="Monster15" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 1641.08, 1774.25 )
-
-[node name="Monster16" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 2606.54, 825.213 )
-
-[node name="Monster2" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 1599.57, 972.153 )
-
-[node name="Monster13" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 2860.04, 2455.63 )
-
-[node name="Monster14" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 2068.18, 2396.6 )
-
-[node name="Monster17" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 2922.87, 1420.53 )
-
-[node name="Monster3" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 84.4478, 1879.42 )
-
-[node name="Monster4" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 2753.21, 2894.26 )
-
-[node name="Monster5" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 800.363, 2943.21 )
-
-[node name="Monster6" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 92.1429, 2657.76 )
-
-[node name="Monster7" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 2486.24, 1931.16 )
-
-[node name="Monster8" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 2202.75, 172.877 )
-
-[node name="Monster9" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 1151.1, 106.608 )
-
-[node name="Monster10" parent="Monsters" instance=ExtResource( 5 )]
-position = Vector2( 782.832, 2200.13 )
 
 [node name="Monster11" parent="Monsters" instance=ExtResource( 5 )]
 position = Vector2( 1683.46, 2758.11 )
