@@ -2,6 +2,7 @@ extends Area2D
 
 onready var target = self
 onready var bounds = $"../../MapBoundary".bounds
+onready var navigation = $"../..".navigation
 
 const MAX_SPEED = 300
 const CHASING_SPEED = 359
@@ -17,9 +18,6 @@ var speed = 1
 
 func _ready():
 	rotation = randf() * PI*2
-	
-	var theta = randf() * 2*PI
-	wander_target = Vector2(WANDER_RADIUS * cos(theta), WANDER_RADIUS * sin(theta))
 
 func _process(delta):
 	velocity = (velocity + next_step(delta)).clamped(MAX_SPEED)
@@ -97,16 +95,20 @@ func declip():
 	
 	position += move
 
-const WANDER_RADIUS = 16
-const WANDER_DISTANCE = 256
-const WANDER_JITTER = 16
+const WANDER_RADIUS = pow(80, 2)
+const WANDER_TOLERANCE = pow(16, 2)
 
-var wander_target
+onready var wander_target = position
 
 func wander():
-	wander_target = (wander_target + Vector2((-1 + randf()*2) * WANDER_JITTER, (-1 + randf()*2) * WANDER_JITTER)).normalized()
-	wander_target *= WANDER_RADIUS
-	var target_local = wander_target + Vector2(WANDER_DISTANCE, 0)
-	return target_local.rotated(rotation)
+	if (position - wander_target).length_squared() <= WANDER_TOLERANCE:
+		var possible = []
+		for point in navigation:
+			if (point - position).length_squared() <= WANDER_RADIUS:
+				possible.append(point)
+		
+		wander_target = possible[randi() % possible.size()]
+	
+	return seek(wander_target)
 
 const DISTANCE_FROM_BOUNDARY = 100
