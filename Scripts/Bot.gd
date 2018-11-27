@@ -4,6 +4,9 @@ onready var target = self
 onready var bounds = $"../../MapBoundary".bounds
 onready var navigation = $"../..".navigation
 
+enum STATE{EXPLORE, ATTACK, FLEE, RESTOCK, HEAL}
+var state = EXPLORE
+
 const MAX_SPEED = 300
 const CHASING_SPEED = 359
 const RADIUS = 32
@@ -110,5 +113,3 @@ func wander():
 		wander_target = possible[randi() % possible.size()]
 	
 	return seek(wander_target)
-
-const DISTANCE_FROM_BOUNDARY = 100
