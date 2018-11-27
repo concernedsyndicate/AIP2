@@ -102,6 +102,7 @@ const WANDER_RADIUS = pow(80, 2)
 const WANDER_TOLERANCE = pow(16, 2)
 
 onready var wander_target = position
+onready var previous_target = position
 
 func wander():
 	if (position - wander_target).length_squared() <= WANDER_TOLERANCE:
@@ -109,7 +110,11 @@ func wander():
 		for point in navigation:
 			if (point - position).length_squared() <= WANDER_RADIUS:
 				possible.append(point)
+				possible.append(point)
+				if point == previous_target : #rzadziej robi "w tył zwrot"
+					possible.pop_back()
 		
+		previous_target = wander_target
 		wander_target = possible[randi() % possible.size()]
 	
 	return seek(wander_target)
