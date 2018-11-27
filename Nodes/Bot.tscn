@@ -37,5 +37,3 @@ position = Vector2( 84.8322, -50.9424 )
 [node name="RightFeeler" type="Position2D" parent="Feelers"]
 position = Vector2( 84.832, 50.942 )
 
-[connection signal="body_entered" from="." to="." method="on_collision"]
-[connection signal="body_exited" from="." to="." method="on_decolission"]
