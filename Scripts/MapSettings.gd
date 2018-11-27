@@ -1,11 +1,11 @@
 tool
 extends Node2D
 
-export var bounds = Rect2(0, 0, 1200, 1200)
+export var bounds = Rect2(0, 0, 1344, 1344)
 
 func _ready():
 	if !Engine.editor_hint:
-		var camera = $"../Player/Camera2D"
+		var camera = $"../Camera"
 		
 		camera.limit_top = bounds.position.y
 		camera.limit_left = bounds.position.x

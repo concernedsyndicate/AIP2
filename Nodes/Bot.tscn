@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 radius = 30.0
 
-[node name="Monster" type="Area2D" groups=[
+[node name="Bot" type="Area2D" groups=[
 "monsters",
 ]]
 input_pickable = true

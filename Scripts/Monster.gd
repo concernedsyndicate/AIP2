@@ -1,6 +1,6 @@
 extends Area2D
 
-onready var target = get_tree().get_nodes_in_group("player")[0]
+onready var target = self
 onready var bounds = $"../../MapBoundary".bounds
 
 const MAX_SPEED = 300
@@ -13,6 +13,7 @@ var neighbors = []
 var is_damaging = false
 var flocked_before = false
 var current_obstacle = {}
+var speed = 1
 
 func _ready():
 	rotation = randf() * PI*2

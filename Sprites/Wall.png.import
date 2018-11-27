@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Obstacle.png-b365a36ce86a738b19b9a24ec4b82638.stex"
+path="res://.import/Wall.png-c1e6c8a44733b40234aae37bb1bf51ff.stex"
 
 [deps]
 
-source_file="res://Sprites/Obstacle.png"
-dest_files=[ "res://.import/Obstacle.png-b365a36ce86a738b19b9a24ec4b82638.stex" ]
+source_file="res://Sprites/Wall.png"
+dest_files=[ "res://.import/Wall.png-c1e6c8a44733b40234aae37bb1bf51ff.stex" ]
 
 [params]
 
@@ -18,7 +18,7 @@ compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=true
+flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
