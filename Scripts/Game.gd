@@ -25,7 +25,7 @@ func _ready():
 					to_check.append(p2)
 
 func is_valid(point):
-	return $MapBoundary.bounds.has_point(point)# and !$Walls.get_cellv(point / Vector2(128, 128))
+	return $MapBoundary.bounds.has_point(point) and $Walls.get_cellv(point / Vector2(128, 128)) == -1 and $Walls.get_cellv((point - Vector2(64, 64)) / Vector2(128, 128)) == -1
 
 func _process(delta):
 	camera.position = bots.get_child(bot_id).position
