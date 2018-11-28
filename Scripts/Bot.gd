@@ -32,10 +32,15 @@ func _process(delta):
 	if is_damaging:
 		target.health -= 1
 	
+	target = navigation[randi() % navigation.size()]
+	print(target)
+	dijxtra(target)
+	
 	update()
 
 func next_step(delta):
 	return wander()
+#	return follow_path()
 
 func seek(target_position):
 	var desired_velocity = (target_position - position).normalized() * MAX_SPEED
@@ -118,3 +123,62 @@ func wander():
 		wander_target = possible[randi() % possible.size()]
 	
 	return seek(wander_target)
+
+const PositiveInfinity = 3.402823e+38
+var path = []
+
+func dijxtra(target, graph = navigation, source = position):
+	var D = []
+	var previous = []
+	
+	for v in graph:
+		print(v)
+		D[v] = PositiveInfinity # distance(source, v)
+		previous[v] = null
+	
+	D[source] = 0
+	var W = graph
+	
+	while (!W.empty()):
+		# u = wierzcholek z W taki, że D[u] jest najmniejsza
+		var u = W.front()
+		
+		for temp in W:
+			if D[temp] < D[u]:
+				u = temp
+				
+		W.pop(u)
+		
+		for x in range(-1, 2): # dla kazdego sasiada v wierzcholka u z W
+			for y in range(-1, 2):
+				if x == 0 and y == 0: continue
+				
+				var v = u + Vector2(x * 64, y * 64)
+				if navigation.has(v):
+					if D[v] > D[u] + u.distance_to(v):  # relax(u, v), distance_to do podmienienia na stale wartosci
+						print (u.distance_to(v))
+						D[v] = D[u] + u.distance_to(v)
+						previous[v] = u
+	
+	var new_path = []
+	var u = target
+	while !previous.empty():
+		new_path.push_front(u)
+		u = previous[u]
+		
+	path = new_path
+
+onready var follow_target = position
+
+func follow_path():
+	follow_target = path.front()
+	if (position - path.front()).length_squared() <= WANDER_TOLERANCE:
+		path.pop_front()
+		if path.empty():
+		
+			print ("DOTARLES")
+			return null
+		
+		follow_target = path.front()
+	
+	return seek(follow_target)
