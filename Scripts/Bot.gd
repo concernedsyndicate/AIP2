@@ -124,22 +124,22 @@ func wander():
 	
 	return seek(wander_target)
 
-const PositiveInfinity = 3.402823e+38
+const PositiveInfinity = 3.402823e+38 #wtf, przecież jest po prostu INF, patrz na datę jak googlasz
 var path = []
 
-func dijxtra(target, graph = navigation, source = position):
-	var D = []
-	var previous = []
+func dijxtra(target, graph = navigation.duplicate(), source = position):
+	var D = {} #czemu to była tablica ;_;
+	var previous = {}
 	
 	for v in graph:
-		print(v)
-		D[v] = PositiveInfinity # distance(source, v)
+#		print(v)
+		D[v] = INF # distance(source, v)
 		previous[v] = null
 	
 	D[source] = 0
 	var W = graph
 	
-	while (!W.empty()):
+	while !W.empty():
 		# u = wierzcholek z W taki, że D[u] jest najmniejsza
 		var u = W.front()
 		
@@ -147,22 +147,24 @@ func dijxtra(target, graph = navigation, source = position):
 			if D[temp] < D[u]:
 				u = temp
 				
-		W.pop(u)
+		W.pop_front()
 		
 		for x in range(-1, 2): # dla kazdego sasiada v wierzcholka u z W
 			for y in range(-1, 2):
 				if x == 0 and y == 0: continue
 				
 				var v = u + Vector2(x * 64, y * 64)
-				if navigation.has(v):
-					if D[v] > D[u] + u.distance_to(v):  # relax(u, v), distance_to do podmienienia na stale wartosci
-						print (u.distance_to(v))
-						D[v] = D[u] + u.distance_to(v)
+				if v in navigation:
+					if D[v] >= D[u] + (u - v).length_squared():  # relax(u, v), distance_to do podmienienia na stale wartosci
+#						print (u.distance_to(v))
+						D[v] = D[u] + (u - v).length_squared() #length_squared jest szybsze
 						previous[v] = u
+					
+#					if v == target: print(previous[v], previous[target])
 	
 	var new_path = []
 	var u = target
-	while !previous.empty():
+	while u != source:
 		new_path.push_front(u)
 		u = previous[u]
 		
