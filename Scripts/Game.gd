@@ -25,7 +25,24 @@ func _ready():
 					to_check.append(p2)
 
 func is_valid(point):
-	return $MapBoundary.bounds.has_point(point) and $Walls.get_cellv(point / Vector2(128, 128)) == -1 and $Walls.get_cellv((point - Vector2(64, 64)) / Vector2(128, 128)) == -1
+	if $MapBoundary.bounds.has_point(point):
+		for triangle in $Geometry.get_children():
+			if inside_triangle(triangle.polygon[0].x, triangle.polygon[0].y, triangle.polygon[1].x, triangle.polygon[1].y,
+					triangle.polygon[2].x, triangle.polygon[2].y, point.x, point.y):
+				return false
+		
+		return true
+
+func triangle_area(x1, y1, x2, y2, x3, y3): 
+    return abs((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) / 2.0)
+
+func inside_triangle(x1, y1, x2, y2, x3, y3, x, y):
+    var A = triangle_area(x1, y1, x2, y2, x3, y3) 
+    var A1 = triangle_area(x, y, x2, y2, x3, y3) 
+    var A2 = triangle_area (x1, y1, x, y, x3, y3) 
+    var A3 = triangle_area (x1, y1, x2, y2, x, y) 
+	
+    if A == A1 + A2 + A3: return true
 
 func _process(delta):
 	camera.position = bots.get_child(bot_id).position

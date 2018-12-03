@@ -34,7 +34,7 @@ func _process(delta):
 	
 	target = navigation[randi() % navigation.size()]
 	print(target)
-	dijxtra(target)
+#	dijxtra(target)
 	
 	update()
 
