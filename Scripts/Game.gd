@@ -8,6 +8,8 @@ var bot_id = 0
 var navigation = []
 
 func _ready():
+	randomize()
+	
 	var to_check = [$Bots/Bot.position]
 	
 	while !to_check.empty():

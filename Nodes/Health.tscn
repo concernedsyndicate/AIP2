@@ -28,5 +28,7 @@ audio_bus_override = false
 audio_bus_name = "Master"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource( 1 )
 
+[connection signal="area_entered" from="Area2D" to="." method="collect"]
