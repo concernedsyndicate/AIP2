@@ -29,11 +29,5 @@ texture = ExtResource( 2 )
 rotation = 1.56898
 shape = SubResource( 1 )
 
-[node name="Feelers" type="Node2D" parent="."]
-
-[node name="LeftFeeler" type="Position2D" parent="Feelers"]
-position = Vector2( 84.8322, -50.9424 )
-
-[node name="RightFeeler" type="Position2D" parent="Feelers"]
-position = Vector2( 84.832, 50.942 )
+[node name="Shooter" type="Node" parent="."]
 
