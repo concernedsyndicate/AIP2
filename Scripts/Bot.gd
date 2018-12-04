@@ -4,6 +4,7 @@ onready var starting_position = position
 onready var target = position
 onready var bounds = $"../../MapBoundary".bounds
 onready var navigation = $"../..".navigation
+onready var character = $Character
 
 enum STATE{EXPLORE, ATTACK, FLEE, RESTOCK, HEAL}
 var state = EXPLORE
@@ -21,6 +22,7 @@ var current_obstacle = {}
 var speed = 1
 
 var not_smart_solution = true
+var arrived_at_path_end = false
 
 func _ready():
 	rotation = randf() * PI*2
@@ -46,7 +48,15 @@ func _process(delta):
 
 func next_step(delta):
 #	return wander()
-	return follow_path()
+	if !arrived_at_path_end:
+		return follow_path()
+	else: 
+		target = navigation[randi() % navigation.size()]
+		print(target)
+		dijxtra(target)
+		arrived_at_path_end = false
+#		wander_target = position
+		return follow_path()
 
 func seek(target_position):
 	var desired_velocity = (target_position - position).normalized() * MAX_SPEED
@@ -132,16 +142,16 @@ func wander():
 
 var path = []
 
-func dijxtra(target, graph = navigation.duplicate(), source = starting_position): # source = closest_v(position)
+func dijxtra(target, source = closest_v(position)): # source = closest_v(position) # wez najblizszy pkt, a przy liczeniu sceizki go wyrzuc by sie nie cofac
 	var D = {}
 	var previous = {}
 	
-	for v in graph:
+	for v in navigation:
 		D[v] = INF # distance(source, v)
 		previous[v] = null
 	
 	D[source] = 0
-	var W = graph
+	var W = navigation.duplicate()
 	
 	while !W.empty():
 		# u = wierzcholek z W taki, że D[u] jest najmniejsza
@@ -186,6 +196,7 @@ func follow_path():
 		if (position - path.front()).length_squared() <= WANDER_TOLERANCE:
 			path.pop_front()
 			if path.empty():
+				arrived_at_path_end = true
 				return seek(position)
 			
 			follow_target = path.front()
@@ -193,3 +204,23 @@ func follow_path():
 		return seek(follow_target)
 	else:
 		return seek(position)
+
+func closest_v(pos):
+	var base = pos.snapped(Vector2(64,64)) # lewy gorny rog
+#	var v = (pos + Vector2(32, 32)).snapped(Vector2(64, 64))
+#	if v in navigation:
+#		return v
+	if base in navigation:
+		return base
+	base += Vector2(0,64)
+	if base in navigation:
+		return base
+	base += Vector2(0,64)
+	if base in navigation:
+		return base
+	base += Vector2(0,64)
+	if base in navigation:
+		return base
+	base += Vector2(0,64)
+	
+	
