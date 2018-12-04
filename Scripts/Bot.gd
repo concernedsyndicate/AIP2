@@ -1,6 +1,7 @@
 extends Area2D
 
-onready var target = self
+onready var starting_position = position
+onready var target = position
 onready var bounds = $"../../MapBoundary".bounds
 onready var navigation = $"../..".navigation
 
@@ -19,10 +20,19 @@ var flocked_before = false
 var current_obstacle = {}
 var speed = 1
 
+var not_smart_solution = true
+
 func _ready():
 	rotation = randf() * PI*2
 
 func _process(delta):
+	
+	if not_smart_solution:
+		not_smart_solution = false
+		target = navigation[randi() % navigation.size()]
+		print(target)
+		dijxtra(target)
+	
 	velocity = (velocity + next_step(delta)).clamped(MAX_SPEED)
 	
 	position += velocity * delta
@@ -32,15 +42,11 @@ func _process(delta):
 	if is_damaging:
 		target.health -= 1
 	
-	target = navigation[randi() % navigation.size()]
-	print(target)
-#	dijxtra(target)
-	
 	update()
 
 func next_step(delta):
-	return wander()
-#	return follow_path()
+#	return wander()
+	return follow_path()
 
 func seek(target_position):
 	var desired_velocity = (target_position - position).normalized() * MAX_SPEED
@@ -124,15 +130,13 @@ func wander():
 	
 	return seek(wander_target)
 
-const PositiveInfinity = 3.402823e+38 #wtf, przecież jest po prostu INF, patrz na datę jak googlasz
 var path = []
 
-func dijxtra(target, graph = navigation.duplicate(), source = position):
-	var D = {} #czemu to była tablica ;_;
+func dijxtra(target, graph = navigation.duplicate(), source = starting_position): # source = closest_v(position)
+	var D = {}
 	var previous = {}
 	
 	for v in graph:
-#		print(v)
 		D[v] = INF # distance(source, v)
 		previous[v] = null
 	
@@ -142,13 +146,17 @@ func dijxtra(target, graph = navigation.duplicate(), source = position):
 	while !W.empty():
 		# u = wierzcholek z W taki, że D[u] jest najmniejsza
 		var u = W.front()
+		var index = 0
+		var desired_index = 0
 		
 		for temp in W:
 			if D[temp] < D[u]:
 				u = temp
+				desired_index = index
+			index = index + 1
 				
-		W.pop_front()
-		
+#		W.pop_front() # nie
+		W.remove(desired_index)
 		for x in range(-1, 2): # dla kazdego sasiada v wierzcholka u z W
 			for y in range(-1, 2):
 				if x == 0 and y == 0: continue
@@ -173,14 +181,15 @@ func dijxtra(target, graph = navigation.duplicate(), source = position):
 onready var follow_target = position
 
 func follow_path():
-	follow_target = path.front()
-	if (position - path.front()).length_squared() <= WANDER_TOLERANCE:
-		path.pop_front()
-		if path.empty():
-		
-			print ("DOTARLES")
-			return null
-		
+	if !path.empty():
 		follow_target = path.front()
-	
-	return seek(follow_target)
+		if (position - path.front()).length_squared() <= WANDER_TOLERANCE:
+			path.pop_front()
+			if path.empty():
+				return seek(position)
+			
+			follow_target = path.front()
+		
+		return seek(follow_target)
+	else:
+		return seek(position)
