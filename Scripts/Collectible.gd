@@ -18,12 +18,12 @@ func collect(bot):
 		AMMO:
 			match variant:
 				RAILH:
-					bot.railgun_ammo += 10
+					bot.character.railgun_ammo += 10
 				ROCKA:
-					bot.rocket_ammo += 15
+					bot.character.rocket_ammo += 15
 		HEALTH:
 			match variant:
 				RAILH:
-					bot.health += 50
+					bot.character.health += 50
 				ROCKA:
-					bot.armor += 50
+					bot.character.armor += 50

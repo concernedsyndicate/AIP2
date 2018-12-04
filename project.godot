@@ -19,6 +19,10 @@ config/name="AIaiaiai"
 run/main_scene="res://Scenes/MainScene.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Autoload="*res://Scripts/Autoload.gd"
+
 [debug]
 
 gdscript/warnings/enable=false
