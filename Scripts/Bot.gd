@@ -165,7 +165,6 @@ func dijxtra(target, source = closest_v(position)): # source = closest_v(positio
 				desired_index = index
 			index = index + 1
 				
-#		W.pop_front() # nie
 		W.remove(desired_index)
 		for x in range(-1, 2): # dla kazdego sasiada v wierzcholka u z W
 			for y in range(-1, 2):
@@ -173,12 +172,12 @@ func dijxtra(target, source = closest_v(position)): # source = closest_v(positio
 				
 				var v = u + Vector2(x * 64, y * 64)
 				if v in navigation:
-					if D[v] >= D[u] + (u - v).length_squared():  # relax(u, v), distance_to do podmienienia na stale wartosci
+					if D[v] >= D[u] + (u - v).length_squared():  # relax(u, v), length_squared ew. do podmienienia na stale wartosci
 #						print (u.distance_to(v))
-						D[v] = D[u] + (u - v).length_squared() #length_squared jest szybsze
+						D[v] = D[u] + (u - v).length_squared()
 						previous[v] = u
 					
-#					if v == target: print(previous[v], previous[target])
+					if v == target and previous[v] != previous[target]: print("CO") # nie ma prawa sie tak dziać
 	
 	var new_path = []
 	var u = target
@@ -206,21 +205,23 @@ func follow_path():
 		return seek(position)
 
 func closest_v(pos):
-	var base = pos.snapped(Vector2(64,64)) # lewy gorny rog
+	var base = pos.snapped(Vector2(64,64))
 #	var v = (pos + Vector2(32, 32)).snapped(Vector2(64, 64))
 #	if v in navigation:
 #		return v
-	if base in navigation:
+	if base in navigation: # lewy gorny
 		return base
-	base += Vector2(0,64)
-	if base in navigation:
-		return base
-	base += Vector2(0,64)
-	if base in navigation:
-		return base
-	base += Vector2(0,64)
-	if base in navigation:
-		return base
-	base += Vector2(0,64)
 	
+	base += Vector2(64,0)
+	if base in navigation: # prawy gorny
+		return base
 	
+	base += Vector2(0,64)
+	if base in navigation: # prawy dolny
+		return base
+	
+	base -= Vector2(64,0)
+	if base in navigation: # lewy dolny
+		return base
+	
+	print("Bot poza nawigacją")
