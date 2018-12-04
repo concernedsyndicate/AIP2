@@ -686,6 +686,7 @@ invert_border = 100.0
 bones = [  ]
 
 [node name="PowerUps" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Ammo" parent="PowerUps" instance=ExtResource( 5 )]
 position = Vector2( 256, 1728 )
