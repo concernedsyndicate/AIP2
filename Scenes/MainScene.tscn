@@ -2,10 +2,10 @@
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Floor.png" type="Texture" id=2]
-[ext_resource path="res://Scripts/MapSettings.gd" type="Script" id=3]
-[ext_resource path="res://Nodes/Bot.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Nodes/Ammo.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Nodes/Health.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Nodes/Health.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/MapSettings.gd" type="Script" id=4]
+[ext_resource path="res://Nodes/Bot.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Nodes/Ammo.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -40,6 +40,16 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="Ammo" parent="Floor" instance=ExtResource( 3 )]
+position = Vector2( 896, 544 )
+frame = 1
+variant = 1
+
+[node name="Ammo2" parent="Floor" instance=ExtResource( 3 )]
+position = Vector2( 1152, 448 )
+frame = 1
+variant = 1
+
 [node name="MapBoundary" type="StaticBody2D" parent="."]
 editor/display_folded = true
 input_pickable = false
@@ -47,7 +57,7 @@ collision_layer = 3
 collision_mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 bounds = Rect2( 0, 0, 3200, 3200 )
 
 [node name="Edge" type="CollisionShape2D" parent="MapBoundary"]
@@ -65,16 +75,16 @@ shape = SubResource( 4 )
 [node name="Bots" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="Bot" parent="Bots" instance=ExtResource( 4 )]
+[node name="Bot" parent="Bots" instance=ExtResource( 5 )]
 position = Vector2( 896, 448 )
 
-[node name="Bot2" parent="Bots" instance=ExtResource( 4 )]
+[node name="Bot2" parent="Bots" instance=ExtResource( 5 )]
 position = Vector2( 2496, 1024 )
 
-[node name="Bot3" parent="Bots" instance=ExtResource( 4 )]
+[node name="Bot3" parent="Bots" instance=ExtResource( 5 )]
 position = Vector2( 2624, 2688 )
 
-[node name="Bot4" parent="Bots" instance=ExtResource( 4 )]
+[node name="Bot4" parent="Bots" instance=ExtResource( 5 )]
 position = Vector2( 640, 2432 )
 
 [node name="Camera" type="Camera2D" parent="."]
@@ -688,43 +698,43 @@ bones = [  ]
 [node name="PowerUps" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="Ammo" parent="PowerUps" instance=ExtResource( 5 )]
+[node name="Ammo" parent="PowerUps" instance=ExtResource( 6 )]
 position = Vector2( 256, 1728 )
 
-[node name="Ammo2" parent="PowerUps" instance=ExtResource( 5 )]
+[node name="Ammo2" parent="PowerUps" instance=ExtResource( 6 )]
 position = Vector2( 1408, 1472 )
 frame = 1
 variant = 1
 
-[node name="Ammo3" parent="PowerUps" instance=ExtResource( 6 )]
+[node name="Ammo3" parent="PowerUps" instance=ExtResource( 3 )]
 position = Vector2( 1088, 1088 )
 frame = 1
 variant = 1
 
-[node name="Ammo4" parent="PowerUps" instance=ExtResource( 6 )]
+[node name="Ammo4" parent="PowerUps" instance=ExtResource( 3 )]
 position = Vector2( 3008, 256 )
 
-[node name="Ammo5" parent="PowerUps" instance=ExtResource( 5 )]
+[node name="Ammo5" parent="PowerUps" instance=ExtResource( 6 )]
 position = Vector2( 3008, 384 )
 
-[node name="Ammo6" parent="PowerUps" instance=ExtResource( 5 )]
+[node name="Ammo6" parent="PowerUps" instance=ExtResource( 6 )]
 position = Vector2( 1792, 2816 )
 frame = 1
 variant = 1
 
-[node name="Ammo10" parent="PowerUps" instance=ExtResource( 5 )]
+[node name="Ammo10" parent="PowerUps" instance=ExtResource( 6 )]
 position = Vector2( 1920, 2816 )
 frame = 1
 variant = 1
 
-[node name="Ammo7" parent="PowerUps" instance=ExtResource( 6 )]
+[node name="Ammo7" parent="PowerUps" instance=ExtResource( 3 )]
 position = Vector2( 1472, 192 )
 frame = 1
 variant = 1
 
-[node name="Ammo8" parent="PowerUps" instance=ExtResource( 5 )]
+[node name="Ammo8" parent="PowerUps" instance=ExtResource( 6 )]
 position = Vector2( 1376, 192 )
 
-[node name="Ammo9" parent="PowerUps" instance=ExtResource( 6 )]
+[node name="Ammo9" parent="PowerUps" instance=ExtResource( 3 )]
 position = Vector2( 1344, 2752 )
 
