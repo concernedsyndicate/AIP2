@@ -7,7 +7,7 @@ onready var navigation = $"../..".navigation
 onready var character = $Character
 
 enum STATE{EXPLORE, ATTACK, FLEE, RESTOCK, HEAL}
-var state = EXPLORE
+var state = HEAL
 
 const MAX_SPEED = 300
 const CHASING_SPEED = 359
@@ -33,11 +33,18 @@ func _process(delta):
 				target = navigation[randi() % navigation.size()]
 				print(self.name, " going to ", target)
 				dijxtra(target)
-			
-		
-#		HEAL:
-#			target = closest_heal()
-#			dijxtra(target)
+		HEAL:
+			if !target:
+				var healths = get_tree().get_nodes_in_group("health")
+				target = closest_v(healths[randi() % healths.size()].position)
+				print(self.name, " going to ", target)
+				dijxtra(target)
+		RESTOCK:
+			if !target:
+				var ammos = get_tree().get_nodes_in_group("ammo")
+				target = closest_v(ammos[randi() % ammos.size()].position)
+				print(self.name, " going to ", target)
+				dijxtra(target)
 		
 	velocity = (velocity + next_step(delta)).clamped(MAX_SPEED)
 	

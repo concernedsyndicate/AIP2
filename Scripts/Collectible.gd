@@ -16,7 +16,7 @@ func collect(bot):
 	respawner.collectible = self
 	respawner.position = position
 	get_parent().add_child(respawner)
-	get_parent().remove_child(self)
+	get_parent().call_deferred("remove_child", self)
 	
 	match type:
 		AMMO:

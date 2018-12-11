@@ -8,14 +8,16 @@
 custom_solver_bias = 0.0
 extents = Vector2( 32, 32 )
 
-[node name="Ammo" type="Sprite"]
+[node name="Ammo" type="Sprite" groups=[
+"health",
+]]
 texture = ExtResource( 1 )
 hframes = 2
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
-type = 0
+type = 1
 variant = 0
 
 [node name="Area2D" type="Area2D" parent="."]

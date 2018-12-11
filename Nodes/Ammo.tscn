@@ -8,7 +8,9 @@
 custom_solver_bias = 0.0
 extents = Vector2( 32, 32 )
 
-[node name="Ammo" type="Sprite"]
+[node name="Ammo" type="Sprite" groups=[
+"ammo",
+]]
 texture = ExtResource( 1 )
 hframes = 2
 script = ExtResource( 2 )
