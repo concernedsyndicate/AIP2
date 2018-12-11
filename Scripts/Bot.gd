@@ -32,7 +32,7 @@ func _process(delta):
 	if not_smart_solution:
 		not_smart_solution = false
 		target = navigation[randi() % navigation.size()]
-		print(target)
+		print(self.name, " going to ", target)
 		dijxtra(target)
 	
 	velocity = (velocity + next_step(delta)).clamped(MAX_SPEED)
@@ -52,7 +52,7 @@ func next_step(delta):
 		return follow_path()
 	else: 
 		target = navigation[randi() % navigation.size()]
-		print(target)
+		print(self.name, " going to ", target)
 		dijxtra(target)
 		arrived_at_path_end = false
 #		wander_target = position
@@ -166,13 +166,13 @@ func dijxtra(target, source = closest_v(position)): # source = closest_v(positio
 			index = index + 1
 				
 		W.remove(desired_index)
-		for x in range(-1, 2): # dla kazdego sasiada v wierzcholka u z W
+		for x in range(-1, 2): # dla kazdego z 8 sasiadow v wierzcholka u z W
 			for y in range(-1, 2):
 				if x == 0 and y == 0: continue
 				
 				var v = u + Vector2(x * 64, y * 64)
 				if v in navigation:
-					if D[v] >= D[u] + (u - v).length_squared():  # relax(u, v), length_squared ew. do podmienienia na stale wartosci
+					if D[v] > D[u] + (u - v).length_squared():  # relax(u, v), length_squared ew. do podmienienia na stale wartosci
 #						print (u.distance_to(v))
 						D[v] = D[u] + (u - v).length_squared()
 						previous[v] = u
@@ -189,10 +189,12 @@ func dijxtra(target, source = closest_v(position)): # source = closest_v(positio
 
 onready var follow_target = position
 
+const FOLLOW_PATH_TOLERANCE = pow(3, 2)
+
 func follow_path():
 	if !path.empty():
 		follow_target = path.front()
-		if (position - path.front()).length_squared() <= WANDER_TOLERANCE:
+		if (position - path.front()).length_squared() <= FOLLOW_PATH_TOLERANCE:
 			path.pop_front()
 			if path.empty():
 				arrived_at_path_end = true
