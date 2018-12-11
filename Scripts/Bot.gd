@@ -1,7 +1,7 @@
 extends Area2D
 
 onready var starting_position = position
-onready var target = position
+onready var target = null
 onready var bounds = $"../../MapBoundary".bounds
 onready var navigation = $"../..".navigation
 onready var character = $Character
@@ -21,42 +21,39 @@ var flocked_before = false
 var current_obstacle = {}
 var speed = 1
 
-var not_smart_solution = true
 var arrived_at_path_end = false
 
 func _ready():
 	rotation = randf() * PI*2
 
 func _process(delta):
-	
-	if not_smart_solution:
-		not_smart_solution = false
-		target = navigation[randi() % navigation.size()]
-		print(self.name, " going to ", target)
-		dijxtra(target)
-	
+	match state:
+		EXPLORE:
+			if !target:
+				target = navigation[randi() % navigation.size()]
+				print(self.name, " going to ", target)
+				dijxtra(target)
+			
+		
+#		HEAL:
+#			target = closest_heal()
+#			dijxtra(target)
+		
 	velocity = (velocity + next_step(delta)).clamped(MAX_SPEED)
 	
 	position += velocity * delta
 	call_deferred("declip")
 	rotation = velocity.angle()
 	
-	if is_damaging:
-		target.health -= 1
-	
 	update()
 
 func next_step(delta):
 #	return wander()
-	if !arrived_at_path_end:
-		return follow_path()
-	else: 
-		target = navigation[randi() % navigation.size()]
-		print(self.name, " going to ", target)
-		dijxtra(target)
+	if arrived_at_path_end:
 		arrived_at_path_end = false
-#		wander_target = position
-		return follow_path()
+		target = null
+	
+	return follow_path()
 
 func seek(target_position):
 	var desired_velocity = (target_position - position).normalized() * MAX_SPEED

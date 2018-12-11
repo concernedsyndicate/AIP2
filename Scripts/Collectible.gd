@@ -12,7 +12,11 @@ func _process(delta):
 		frame = int(variant)
 
 func collect(bot):
-	queue_free()
+	var respawner = preload("res://Nodes/Respawner.tscn").instance()
+	respawner.collectible = self
+	respawner.position = position
+	get_parent().add_child(respawner)
+	get_parent().remove_child(self)
 	
 	match type:
 		AMMO:
