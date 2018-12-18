@@ -6,7 +6,7 @@ onready var bounds = $"../../MapBoundary".bounds
 onready var navigation = $"../..".navigation
 onready var character = $Character
 
-enum STATE{EXPLORE, ATTACK, FLEE, RESTOCK, HEAL}
+enum {EXPLORE, ATTACK, FLEE, RESTOCK, HEAL}
 var state = HEAL
 
 const MAX_SPEED = 300

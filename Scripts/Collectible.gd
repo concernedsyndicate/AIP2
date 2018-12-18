@@ -4,8 +4,8 @@ extends Sprite
 enum TYPE{AMMO, HEALTH}
 enum VARIANT{RAILH, ROCKA}
 
-export(TYPE) var type = AMMO
-export(VARIANT) var variant = RAILH
+export(TYPE) var type = 0
+export(VARIANT) var variant = 0
 
 func _process(delta):
 	if Engine.editor_hint:
@@ -19,15 +19,15 @@ func collect(bot):
 	get_parent().call_deferred("remove_child", self)
 	
 	match type:
-		AMMO:
+		TYPE.AMMO:
 			match variant:
-				RAILH:
+				VARIANT.RAILH:
 					bot.character.railgun_ammo += 10
-				ROCKA:
+				VARIANT.ROCKA:
 					bot.character.rocket_ammo += 15
-		HEALTH:
+		TYPE.HEALTH:
 			match variant:
-				RAILH:
+				VARIANT.RAILH:
 					bot.character.health += 50
-				ROCKA:
+				VARIANT.ROCKA:
 					bot.character.armor += 50

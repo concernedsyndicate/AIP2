@@ -2,29 +2,25 @@
 
 [ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Floor.png" type="Texture" id=2]
-[ext_resource path="res://Nodes/Health.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scripts/MapSettings.gd" type="Script" id=4]
-[ext_resource path="res://Nodes/Bot.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Nodes/Ammo.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/MapSettings.gd" type="Script" id=3]
+[ext_resource path="res://Nodes/Bot.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Nodes/Ammo.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Nodes/Health.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 
-custom_solver_bias = 0.0
 extents = Vector2( 1, 1 )
 
 [sub_resource type="RectangleShape2D" id=2]
 
-custom_solver_bias = 0.0
 extents = Vector2( 1, 1 )
 
 [sub_resource type="RectangleShape2D" id=3]
 
-custom_solver_bias = 0.0
 extents = Vector2( 1, 1 )
 
 [sub_resource type="RectangleShape2D" id=4]
 
-custom_solver_bias = 0.0
 extents = Vector2( 1, 1 )
 
 [node name="Game" type="Node2D"]
@@ -40,24 +36,10 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Ammo" parent="Floor" instance=ExtResource( 3 )]
-position = Vector2( 896, 544 )
-frame = 1
-variant = 1
-
-[node name="Ammo2" parent="Floor" instance=ExtResource( 3 )]
-position = Vector2( 1152, 448 )
-frame = 1
-variant = 1
-
 [node name="MapBoundary" type="StaticBody2D" parent="."]
 editor/display_folded = true
-input_pickable = false
 collision_layer = 3
-collision_mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 bounds = Rect2( 0, 0, 3200, 3200 )
 
 [node name="Edge" type="CollisionShape2D" parent="MapBoundary"]
@@ -75,41 +57,24 @@ shape = SubResource( 4 )
 [node name="Bots" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="Bot" parent="Bots" instance=ExtResource( 5 )]
+[node name="Bot" parent="Bots" instance=ExtResource( 4 )]
 position = Vector2( 896, 448 )
 
-[node name="Bot2" parent="Bots" instance=ExtResource( 5 )]
+[node name="Bot2" parent="Bots" instance=ExtResource( 4 )]
 position = Vector2( 2496, 1024 )
 
-[node name="Bot3" parent="Bots" instance=ExtResource( 5 )]
+[node name="Bot3" parent="Bots" instance=ExtResource( 4 )]
 position = Vector2( 2624, 2688 )
 
-[node name="Bot4" parent="Bots" instance=ExtResource( 5 )]
+[node name="Bot4" parent="Bots" instance=ExtResource( 4 )]
 position = Vector2( 640, 2432 )
 
 [node name="Camera" type="Camera2D" parent="."]
-anchor_mode = 1
-rotating = false
+position = Vector2( 1600, 1600 )
 current = true
-zoom = Vector2( 1, 1 )
-limit_left = -10000000
-limit_top = -10000000
-limit_right = 10000000
-limit_bottom = 10000000
-limit_smoothed = false
+zoom = Vector2( 2.5, 2.5 )
 drag_margin_h_enabled = false
 drag_margin_v_enabled = false
-smoothing_enabled = false
-smoothing_speed = 5.0
-offset_v = 0.0
-offset_h = 0.0
-drag_margin_left = 0.2
-drag_margin_top = 0.2
-drag_margin_right = 0.2
-drag_margin_bottom = 0.2
-editor_draw_screen = true
-editor_draw_limits = false
-editor_draw_drag_margin = false
 
 [node name="Geometry" type="Node2D" parent="."]
 editor/display_folded = true
@@ -119,622 +84,180 @@ __meta__ = {
 
 [node name="Polygon2D" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 0, 0, 3200, 0, 0, 128 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D2" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 3200, 0, 3200, 128, 0, 128 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D3" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 0, 128, 1152, 128, 0, 640 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D4" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 0, 640, 576, 384, 576, 1600 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D5" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 0, 640, 576, 1600, 0, 1600 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D6" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 896, 768, 1536, 512, 2048, 512 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D7" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 896, 768, 2048, 512, 2048, 1024 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D8" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 896, 768, 896, 1024, 2048, 1024 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D9" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 896, 1024, 896, 1600, 1024, 1024 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D10" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 896, 1600, 1024, 1024, 1024, 1600 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D11" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 1792, 128, 2304, 256, 2304, 128 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D12" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 2304, 128, 2304, 640, 2560, 128 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D13" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 2304, 640, 2560, 128, 2560, 640 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D14" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 2560, 128, 2560, 256, 3072, 128 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D15" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 3072, 128, 3072, 3200, 3200, 128 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D16" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 3072, 3200, 3200, 3200, 3200, 128 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D17" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 3072, 768, 2816, 512, 3072, 512 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D18" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 2816, 512, 2816, 768, 3072, 768 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D19" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 0, 1600, 128, 1600, 0, 3200 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D20" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 0, 3200, 128, 1600, 128, 3200 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D21" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 128, 2816, 128, 3200, 1664, 2816 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D22" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 128, 3200, 1664, 2816, 1664, 3200 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D23" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 1664, 2816, 1408, 2816, 1408, 2432 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D24" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 1408, 2432, 1664, 2432, 1664, 2816 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D25" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 896, 1600, 1024, 1600, 896, 2048 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D26" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 1024, 1600, 1664, 2048, 896, 2048 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D27" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 1472, 1600, 2112, 2048, 2112, 1600 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D28" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 1472, 1600, 1472, 1344, 2688, 1344 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D29" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 1472, 1600, 2688, 1344, 2688, 1600 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D30" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 1664, 3200, 3072, 3200, 3072, 2944 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D31" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 1664, 3200, 1664, 2944, 3072, 2944 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D32" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 2112, 1600, 2112, 2560, 2304, 2560 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D33" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 2112, 1600, 2304, 1600, 2304, 2560 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="Polygon2D34" type="Polygon2D" parent="Geometry"]
 polygon = PoolVector2Array( 3072, 2560, 2560, 2176, 3072, 1792 )
-uv = PoolVector2Array(  )
-splits = PoolIntArray(  )
 color = Color( 0, 0, 0, 1 )
-vertex_colors = PoolColorArray(  )
-offset = Vector2( 0, 0 )
-antialiased = false
-texture = null
-texture_offset = Vector2( 0, 0 )
-texture_scale = Vector2( 1, 1 )
-texture_rotation_degrees = 0.0
-skeleton = NodePath("")
-invert_enable = false
-invert_border = 100.0
-bones = [  ]
 
 [node name="PowerUps" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="Ammo" parent="PowerUps" instance=ExtResource( 6 )]
+[node name="Ammo" parent="PowerUps" instance=ExtResource( 5 )]
 position = Vector2( 256, 1728 )
 
-[node name="Ammo2" parent="PowerUps" instance=ExtResource( 6 )]
+[node name="Ammo2" parent="PowerUps" instance=ExtResource( 5 )]
 position = Vector2( 1408, 1472 )
 frame = 1
 variant = 1
 
-[node name="Ammo3" parent="PowerUps" instance=ExtResource( 3 )]
+[node name="Health4" parent="PowerUps" instance=ExtResource( 6 )]
 position = Vector2( 1088, 1088 )
 frame = 1
 variant = 1
 
-[node name="Ammo4" parent="PowerUps" instance=ExtResource( 3 )]
+[node name="Health2" parent="PowerUps" instance=ExtResource( 6 )]
 position = Vector2( 3008, 256 )
 
-[node name="Ammo5" parent="PowerUps" instance=ExtResource( 6 )]
-position = Vector2( 3008, 384 )
+[node name="Ammo5" parent="PowerUps" instance=ExtResource( 5 )]
+position = Vector2( 3010.65, 384 )
 
-[node name="Ammo6" parent="PowerUps" instance=ExtResource( 6 )]
+[node name="Ammo6" parent="PowerUps" instance=ExtResource( 5 )]
 position = Vector2( 1792, 2816 )
 frame = 1
 variant = 1
 
-[node name="Ammo10" parent="PowerUps" instance=ExtResource( 6 )]
+[node name="Ammo10" parent="PowerUps" instance=ExtResource( 5 )]
 position = Vector2( 1920, 2816 )
 frame = 1
 variant = 1
 
-[node name="Ammo7" parent="PowerUps" instance=ExtResource( 3 )]
+[node name="Health" parent="PowerUps" instance=ExtResource( 6 )]
 position = Vector2( 1472, 192 )
 frame = 1
 variant = 1
 
-[node name="Ammo8" parent="PowerUps" instance=ExtResource( 6 )]
+[node name="Ammo8" parent="PowerUps" instance=ExtResource( 5 )]
 position = Vector2( 1376, 192 )
 
-[node name="Ammo9" parent="PowerUps" instance=ExtResource( 3 )]
+[node name="Health3" parent="PowerUps" instance=ExtResource( 6 )]
 position = Vector2( 1344, 2752 )
 

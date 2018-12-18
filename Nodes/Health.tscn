@@ -5,10 +5,9 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 
-custom_solver_bias = 0.0
 extents = Vector2( 32, 32 )
 
-[node name="Ammo" type="Sprite" groups=[
+[node name="Health" type="Sprite" groups=[
 "health",
 ]]
 texture = ExtResource( 1 )
@@ -18,16 +17,8 @@ __meta__ = {
 "_edit_group_": true
 }
 type = 1
-variant = 0
 
 [node name="Area2D" type="Area2D" parent="."]
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 visible = false

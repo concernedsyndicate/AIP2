@@ -45,7 +45,14 @@ func inside_triangle(x1, y1, x2, y2, x3, y3, x, y):
     if A == A1 + A2 + A3: return true
 
 func _process(delta):
-	camera.position = bots.get_child(bot_id).position
+	if bot_id > 0:
+		camera.position = bots.get_child(bot_id).position
+	else:
+		var average = Vector2()
+		for bot in bots.get_children():
+			average += bot.position
+		
+		camera.position = average/bots.get_child_count()
 
 func _input(event):
 	if event is InputEventKey and event.pressed and event.scancode == KEY_ENTER:

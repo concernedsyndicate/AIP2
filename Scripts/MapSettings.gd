@@ -12,6 +12,8 @@ func _ready():
 		camera.limit_bottom = bounds.position.y + bounds.size.y
 		camera.limit_right = bounds.position.x + bounds.size.x
 		
+		camera.position = bounds.size/2
+		
 		$Edge.position = bounds.position + Vector2(bounds.size.x/2, 0)
 		$Edge.shape.extents.x = bounds.size.x/2
 		
