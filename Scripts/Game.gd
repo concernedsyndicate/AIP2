@@ -5,7 +5,7 @@ onready var bots = $Bots
 
 var bot_id = 0
 
-var navigation = []
+var navigation = {}
 
 func _ready():
 	var to_check = [$Bots/Bot.position]
@@ -14,7 +14,7 @@ func _ready():
 		var point = to_check.back()
 		to_check.pop_back()
 		
-		navigation.append(point)
+		navigation[point] = true
 		
 		for x in range(-1, 2):
 			for y in range(-1, 2):

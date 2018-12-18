@@ -32,7 +32,9 @@ func _process(delta):
 			if !target:
 				target = navigation[randi() % navigation.size()]
 				print(self.name, " going to ", target)
-				dijxtra(target)
+				
+				var th = Thread.new()
+				th.start(self, "astar", target)
 		HEAL:
 			if !target:
 				var healths = get_tree().get_nodes_in_group("health")
@@ -40,13 +42,15 @@ func _process(delta):
 				print(self.name, " going to ", target)
 				
 				var th = Thread.new()
-				th.start(self, "dijxtra", target)
+				th.start(self, "astar", target)
 		RESTOCK:
 			if !target:
 				var ammos = get_tree().get_nodes_in_group("ammo")
 				target = closest_v(ammos[randi() % ammos.size()].position)
 				print(self.name, " going to ", target)
-				dijxtra(target)
+				
+				var th = Thread.new()
+				th.start(self, "astar", target)
 		
 	velocity = (velocity + next_step(delta)).clamped(MAX_SPEED)
 	
@@ -148,50 +152,47 @@ func wander():
 
 var path = []
 
-func dijxtra(target, source = closest_v(position)): # source = closest_v(position) # wez najblizszy pkt, a przy liczeniu sceizki go wyrzuc by sie nie cofac
-	var D = {}
-	var previous = {}
-	
-	for v in navigation:
-		D[v] = INF # distance(source, v)
-		previous[v] = null
-	
-	D[source] = 0
+func astar(target, source = closest_v(position)): # source = closest_v(position) # wez najblizszy pkt, a przy liczeniu sceizki go wyrzuc by sie nie cofac
+	if !visible: return ###debug
 	var W = navigation.duplicate()
 	
-	while !W.empty():
-		# u = wierzcholek z W taki, że D[u] jest najmniejsza
-		var u = W.front()
-		var index = 0
-		var desired_index = 0
-		
-		for temp in W:
-			if D[temp] < D[u]:
-				u = temp
-				desired_index = index
-			index = index + 1
-				
-		W.remove(desired_index)
-		for x in range(-1, 2): # dla kazdego z 8 sasiadow v wierzcholka u z W
-			for y in range(-1, 2):
-				if x == 0 and y == 0: continue
-				
-				var v = u + Vector2(x * 64, y * 64)
-				if v in navigation:
-					if D[v] > D[u] + (u - v).length_squared():  # relax(u, v), length_squared ew. do podmienienia na stale wartosci
-#						print (u.distance_to(v))
-						D[v] = D[u] + (u - v).length_squared()
-						previous[v] = u
-					
-					if v == target and previous[v] != previous[target]: print("CO") # nie ma prawa sie tak dziać
+	var to_visit = []
+	var visited = {}
 	
-	var new_path = []
-	var u = target
-	while u != source:
-		new_path.push_front(u)
-		u = previous[u]
+	to_visit.append({pos = source, G = 0, H = abs(source.x - target.x) + abs(source.y - target.y), previous = null})
+	
+	var cur
+	while !to_visit.empty():
+		cur = to_visit[0]
+		for p in to_visit:
+			if p.G + p.H < cur.G + cur.H:
+				cur = p
 		
-	path = new_path
+		if cur.pos == target: break
+		
+		to_visit.erase(cur)
+		
+		add_astar_neigbor(cur, target, Vector2(64, 0), 10, to_visit, visited)
+		add_astar_neigbor(cur, target, Vector2(-64, 0), 10, to_visit, visited)
+		add_astar_neigbor(cur, target, Vector2(0, 64), 10, to_visit, visited)
+		add_astar_neigbor(cur, target, Vector2(0, -64), 10, to_visit, visited)
+		add_astar_neigbor(cur, target, Vector2(64, 64), 14, to_visit, visited)
+		add_astar_neigbor(cur, target, Vector2(64, -64), 14, to_visit, visited)
+		add_astar_neigbor(cur, target, Vector2(-64, -64), 14, to_visit, visited)
+		add_astar_neigbor(cur, target, Vector2(-64, 64), 14, to_visit, visited)
+	
+	path.clear()
+	while cur.previous:
+		path.append(cur.pos)
+		cur = cur.previous
+	path.invert()
+
+func add_astar_neigbor(point, target, add_pos, add_g, to_visit, visited):
+	var p = point.pos + add_pos
+	
+	if p in navigation and not p in visited:
+		visited[p]= true
+		to_visit.append({pos = p, G = point.G + add_g, H = abs(p.x - target.x) + abs(p.y - target.y), previous = point})
 
 onready var follow_target = position
 
@@ -213,23 +214,13 @@ func follow_path():
 		return seek(position)
 
 func closest_v(pos):
-	var base = pos.snapped(Vector2(64,64))
-#	var v = (pos + Vector2(32, 32)).snapped(Vector2(64, 64))
-#	if v in navigation:
-#		return v
-	if base in navigation: # lewy gorny
-		return base
+	var base = [pos.snapped(Vector2(64,64))]
+	base.append(base[0] + Vector2(64,0))
+	base.append(base[0] + Vector2(64,64))
+	base.append(base[0] + Vector2(0,64))
 	
-	base += Vector2(64,0)
-	if base in navigation: # prawy gorny
-		return base
+	for vec in navigation:
+		for vec2 in base:
+			if vec == vec2: return vec2
 	
-	base += Vector2(0,64)
-	if base in navigation: # prawy dolny
-		return base
-	
-	base -= Vector2(64,0)
-	if base in navigation: # lewy dolny
-		return base
-	
-	print("Bot poza nawigacją")
+	printerr("Bot poza nawigacją")
