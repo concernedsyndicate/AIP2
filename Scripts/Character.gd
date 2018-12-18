@@ -24,11 +24,11 @@ func set_weapon(weapon):
 	$"../Sprite".frame = skin*2 + int(weapon)
 
 func set_health(ile):
-	health = ile
+	health = clamp(ile, 0, 100)
 	$"../Health".value = health
 	
 func set_armor(ile):
-	armor = ile
+	armor = clamp(ile, 0, 100)
 	$"../Armor".value = armor
 
 func damage(amount):

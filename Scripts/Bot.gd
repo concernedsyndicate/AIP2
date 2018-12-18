@@ -38,7 +38,9 @@ func _process(delta):
 				var healths = get_tree().get_nodes_in_group("health")
 				target = closest_v(healths[randi() % healths.size()].position)
 				print(self.name, " going to ", target)
-				dijxtra(target)
+				
+				var th = Thread.new()
+				th.start(self, "dijxtra", target)
 		RESTOCK:
 			if !target:
 				var ammos = get_tree().get_nodes_in_group("ammo")

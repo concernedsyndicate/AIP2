@@ -46,8 +46,10 @@ func inside_triangle(x1, y1, x2, y2, x3, y3, x, y):
 
 func _process(delta):
 	if bot_id > 0:
-		camera.position = bots.get_child(bot_id).position
+		camera.zoom = Vector2(1, 1)
+		camera.position = bots.get_child(bot_id-1).position
 	else:
+		camera.zoom = Vector2(2.5, 2.5)
 		var average = Vector2()
 		for bot in bots.get_children():
 			average += bot.position
@@ -56,7 +58,7 @@ func _process(delta):
 
 func _input(event):
 	if event is InputEventKey and event.pressed and event.scancode == KEY_ENTER:
-		bot_id = (bot_id + 1) % bots.get_child_count()
+		bot_id = (bot_id + 1) % (bots.get_child_count()+1)
 
 func _draw():
 	for point in navigation:
