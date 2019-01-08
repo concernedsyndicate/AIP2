@@ -74,14 +74,14 @@ func inside_triangle(x1, y1, x2, y2, x3, y3, x, y):
 func _process(delta):
 	if bot_id > 0:
 		camera.zoom = Vector2(1, 1)
-		camera.position = bots.get_child(bot_id-1).position
+		camera.position += (bots.get_child(bot_id-1).position - camera.position)/10
 	else:
 		camera.zoom = Vector2(2.5, 2.5)
 		var average = Vector2()
 		for bot in bots.get_children():
 			average += bot.position
 		
-		camera.position = average/bots.get_child_count()
+		camera.position += (average/bots.get_child_count() - camera.position)/10
 	
 	for respawn in to_respawn:
 		to_respawn[respawn] -= delta
