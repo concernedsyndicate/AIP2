@@ -2,10 +2,13 @@ extends Node2D
 
 onready var camera = $Camera
 onready var bots = $Bots
+onready var spawners = $BotSpawners
 
 var bot_id = 0
 
 var navigation = {}
+
+var to_respawn = {}
 
 func _ready():
 	var to_check = [$Bots/Bot.position]
@@ -44,6 +47,17 @@ func is_colliding(point, damage, attacker):
 		
 		if (point - bot.position).length_squared() < COLLISION_RADIUS:
 			bot.character.damage(damage)
+			
+			if bot.character.health <= 0:
+				bot.get_parent().call_deferred("remove_child", bot)
+				if bot_id == bot.get_index() + 1: bot_id -= 1
+				bot.character.health = 100
+				bot.character.armor = 0
+				bot.character.railgun_ammo = 5
+				bot.character.rocket_ammo = 5
+				
+				to_respawn[bot] = 3
+			
 			return true
 
 func triangle_area(x1, y1, x2, y2, x3, y3): 
@@ -68,6 +82,15 @@ func _process(delta):
 			average += bot.position
 		
 		camera.position = average/bots.get_child_count()
+	
+	for respawn in to_respawn:
+		to_respawn[respawn] -= delta
+		if to_respawn[respawn] <= 0:
+			var pos = spawners.get_child(randi() % spawners.get_child_count()).position
+			
+			respawn.position = pos
+			bots.add_child(respawn)
+			to_respawn.erase(respawn)
 
 func _input(event):
 	if event is InputEventKey and event.pressed and event.scancode == KEY_ENTER:

@@ -41,7 +41,7 @@ func _process(delta):
 		EXPLORE:
 			if !target:
 				target = navigation.keys()[randi() % navigation.size()]
-				print(self.name, " going to ", target)
+#				print(self.name, " going to ", target)
 				
 				var th = Thread.new()
 				th.start(self, "astar", target)
@@ -62,7 +62,7 @@ func _process(delta):
 			if !target:
 				var healths = get_tree().get_nodes_in_group("health")
 				target = closest_v(healths[randi() % healths.size()].position)
-				print(self.name, " going to ", target)
+#				print(self.name, " going to ", target)
 				
 				var th = Thread.new()
 				th.start(self, "astar", target)
@@ -73,10 +73,13 @@ func _process(delta):
 			if !target:
 				var ammos = get_tree().get_nodes_in_group("ammo")
 				target = closest_v(ammos[randi() % ammos.size()].position)
-				print(self.name, " going to ", target)
+#				print(self.name, " going to ", target)
 				
 				var th = Thread.new()
 				th.start(self, "astar", target)
+			
+			if character.rocket_ammo > 2 or character.railgun_ammo > 2:
+				state = EXPLORE
 		ATTACK:
 			var bot = get_closest_bot()
 			rotation = (bot.position - position).angle()
@@ -165,6 +168,8 @@ const MIN_DETECTION_BOX_LENGTH = 200
 const BRAKING_WEIGHT = 0.2
 
 func declip():
+	if !get_tree(): return
+	
 	var move = Vector2()
 	
 	for obstacle in get_tree().get_nodes_in_group("obstacles"):
