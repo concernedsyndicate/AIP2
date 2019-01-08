@@ -4,31 +4,22 @@
 
 script/source = "extends Node2D
 
-onready var game = get_parent()
 onready var line = $Line2D
 
-var attacker
-
-func _ready():
-	var pos = position
-	
-	for i in 1000:
-		pos += Vector2(cos(rotation), sin(rotation)) * 10
-		
-		if game.is_colliding(pos, 100, attacker):
-			line.points[1].x = (position - pos).length()
-			break
-
-func _physics_process(delta):
+func _process(delta):
 	line.modulate.a -= delta
 	if line.modulate.a <= 0: queue_free()"
 
 [node name="RailgunBullet" type="Node2D"]
 z_index = -1
 script = SubResource( 1 )
+_sections_unfolded = [ "Z Index" ]
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PoolVector2Array( 0, 0, 1000, 0 )
-default_color = Color( 1, 1, 1, 1 )
-texture_mode = 1224736768
+width = 10.0
+default_color = Color( 0.4, 0.5, 1, 1 )
+sharp_limit = 2.0
+round_precision = 8
+_sections_unfolded = [ "points" ]
 

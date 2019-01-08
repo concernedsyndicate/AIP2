@@ -5,9 +5,10 @@ onready var target = null
 onready var bounds = $"../../MapBoundary".bounds
 onready var navigation = $"../..".navigation
 onready var character = $Character
+onready var game = $"../.."
 
 enum {EXPLORE, ATTACK, FLEE, RESTOCK, HEAL}
-var state = HEAL
+var state = EXPLORE
 
 const MAX_SPEED = 300
 const CHASING_SPEED = 359
@@ -21,20 +22,42 @@ var flocked_before = false
 var current_obstacle = {}
 var speed = 1
 
+var railgun_cooldown = 0
+var rocket_cooldown = 0
+
 var arrived_at_path_end = false
+
+var color
 
 func _ready():
 	rotation = randf() * PI*2
+	color = [Color.red, Color.blue, Color.green, Color.yellow][get_index()]
 
 func _process(delta):
+	railgun_cooldown -= delta
+	rocket_cooldown -= delta
+	
 	match state:
 		EXPLORE:
 			if !target:
-				target = navigation[randi() % navigation.size()]
+				target = navigation.keys()[randi() % navigation.size()]
 				print(self.name, " going to ", target)
 				
 				var th = Thread.new()
 				th.start(self, "astar", target)
+			
+			if randf() < 0.01:
+				target = null
+			
+			if randf() < 0.01:
+				target = null
+				state = ATTACK
+			
+			if character.health < 20:
+				state = HEAL
+			
+			if character.rocket_ammo < 2 and character.railgun_ammo < 2:
+				state = RESTOCK
 		HEAL:
 			if !target:
 				var healths = get_tree().get_nodes_in_group("health")
@@ -43,6 +66,9 @@ func _process(delta):
 				
 				var th = Thread.new()
 				th.start(self, "astar", target)
+				
+			if character.health > 80:
+				state = EXPLORE
 		RESTOCK:
 			if !target:
 				var ammos = get_tree().get_nodes_in_group("ammo")
@@ -51,7 +77,30 @@ func _process(delta):
 				
 				var th = Thread.new()
 				th.start(self, "astar", target)
-		
+		ATTACK:
+			var bot = get_closest_bot()
+			rotation = (bot.position - position).angle()
+			
+			var bullet
+			if railgun_cooldown <= 0 and character.railgun_ammo > 0:
+				bullet = preload("res://Nodes/RailgunBullet.tscn").instance()
+				railgun_cooldown = 2
+				character.railgun_ammo -= 1
+			elif rocket_cooldown <= 0 and character.rocket_ammo > 0:
+				bullet = preload("res://Nodes/Missile.tscn").instance()
+				rocket_cooldown = 0.5
+				character.rocket_ammo -= 1
+			
+			if bullet:
+				bullet.position = position
+				bullet.rotation = rotation
+				bullet.attacker = self
+				bullet.modulate = color
+			
+			get_parent().get_parent().add_child(bullet)
+			
+			state = EXPLORE
+	
 	velocity = (velocity + next_step(delta)).clamped(MAX_SPEED)
 	
 	position += velocity * delta
@@ -229,3 +278,16 @@ func closest_v(pos):
 		if vec in valid: return vec
 	
 	printerr("Bot poza nawigacją (wtf co on tam robi)")
+
+func get_closest_bot():
+	var min_dist = INF
+	var min_bot
+	
+	for bot in game.bots.get_children():
+		if bot != self:
+			var dist = (bot.position - position).length_squared()
+			if dist < min_dist:
+				min_dist = dist
+				min_bot = bot
+	
+	return min_bot
