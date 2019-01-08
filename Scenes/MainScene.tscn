@@ -55,7 +55,6 @@ shape = SubResource( 3 )
 shape = SubResource( 4 )
 
 [node name="Bots" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Bot" parent="Bots" instance=ExtResource( 4 )]
 position = Vector2( 896, 448 )

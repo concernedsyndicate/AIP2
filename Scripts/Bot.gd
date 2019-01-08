@@ -216,11 +216,16 @@ func follow_path():
 func closest_v(pos):
 	var base = [pos.snapped(Vector2(64,64))]
 	base.append(base[0] + Vector2(64,0))
-	base.append(base[0] + Vector2(64,64))
 	base.append(base[0] + Vector2(0,64))
+	base.append(base[0] + Vector2(64,64))
+	
+	var valid = []
 	
 	for vec in navigation:
-		for vec2 in base:
-			if vec == vec2: return vec2
+		if vec in base:
+			valid.append(vec)
 	
-	printerr("Bot poza nawigacją")
+	for vec in base:
+		if vec in valid: return vec
+	
+	printerr("Bot poza nawigacją (wtf co on tam robi)")
