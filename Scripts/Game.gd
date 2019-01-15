@@ -11,6 +11,14 @@ var navigation = {}
 var to_respawn = {}
 
 func _ready():
+	var cached = Autoload.load_json("res://MapCache.json")
+	if cached:
+		for pos in cached:
+			var split = pos.split(", ")
+			navigation[Vector2(int(split[0]), int(split[1]))] = true
+		
+		return
+	
 	var to_check = [$Bots/Bot.position]
 	
 	while !to_check.empty():
@@ -24,8 +32,10 @@ func _ready():
 				if x == 0 and y == 0: continue
 				var p2 = point + Vector2(x * 64, y * 64)
 				
-				if !to_check.has(p2) and !navigation.has(p2) and is_valid(p2):
+				if !to_check.has(p2) and !navigation.has(p2) and is_valid(p2) and is_valid(p2 + Vector2(32, 32)) and is_valid(p2 + Vector2(-32, 32)) and is_valid(p2 + Vector2(32, -32)) and is_valid(p2 + Vector2(-32, -32)):
 					to_check.append(p2)
+	
+	Autoload.save_json(navigation, "res://MapCache.json")
 
 func is_valid(point):
 	if $MapBoundary.bounds.has_point(point):
