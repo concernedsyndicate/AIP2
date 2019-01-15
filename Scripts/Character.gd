@@ -10,6 +10,9 @@ var armor = 0 setget set_armor
 var railgun_ammo = 5
 var rocket_ammo = 5
 
+var railgun_cooldown = 0
+var rocket_cooldown = 0
+
 var current_weapon setget set_weapon
 
 func _ready():
@@ -18,6 +21,10 @@ func _ready():
 	
 	$"../Health".value = health
 	$"../Armor".value = armor
+
+func _process(delta):
+	railgun_cooldown -= delta
+	rocket_cooldown -= delta
 
 func set_weapon(weapon):
 	current_weapon = weapon

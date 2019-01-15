@@ -1,14 +1,11 @@
 extends Area2D
 
 onready var starting_position = position
-onready var target = null
 onready var bounds = $"../../MapBoundary".bounds
 onready var navigation = $"../..".navigation
 onready var character = $Character
+onready var state = $State
 onready var game = $"../.."
-
-enum {EXPLORE, ATTACK, FLEE, RESTOCK, HEAL}
-var state = EXPLORE
 
 const MAX_SPEED = 300
 const CHASING_SPEED = 359
@@ -22,8 +19,7 @@ var flocked_before = false
 var current_obstacle = {}
 var speed = 1
 
-var railgun_cooldown = 0
-var rocket_cooldown = 0
+var target
 
 var arrived_at_path_end = false
 
@@ -34,75 +30,7 @@ func _ready():
 	color = [Color.red, Color.blue, Color.green, Color.yellow][get_index()]
 
 func _process(delta):
-	railgun_cooldown -= delta
-	rocket_cooldown -= delta
-	
-	match state:
-		EXPLORE:
-			if !target:
-				target = navigation.keys()[randi() % navigation.size()]
-#				print(self.name, " going to ", target)
-				
-				var th = Thread.new()
-				th.start(self, "astar", target)
-			
-			if randf() < 0.01:
-				target = null
-			
-			if randf() < 0.01:
-				target = null
-				state = ATTACK
-			
-			if character.health < 20:
-				state = HEAL
-			
-			if character.rocket_ammo < 2 and character.railgun_ammo < 2:
-				state = RESTOCK
-		HEAL:
-			if !target:
-				var healths = get_tree().get_nodes_in_group("health")
-				target = closest_v(healths[randi() % healths.size()].position)
-#				print(self.name, " going to ", target)
-				
-				var th = Thread.new()
-				th.start(self, "astar", target)
-				
-			if character.health > 80:
-				state = EXPLORE
-		RESTOCK:
-			if !target:
-				var ammos = get_tree().get_nodes_in_group("ammo")
-				target = closest_v(ammos[randi() % ammos.size()].position)
-#				print(self.name, " going to ", target)
-				
-				var th = Thread.new()
-				th.start(self, "astar", target)
-			
-			if character.rocket_ammo > 2 or character.railgun_ammo > 2:
-				state = EXPLORE
-		ATTACK:
-			var bot = get_closest_bot()
-			rotation = (bot.position - position).angle()
-			
-			var bullet
-			if railgun_cooldown <= 0 and character.railgun_ammo > 0:
-				bullet = preload("res://Nodes/RailgunBullet.tscn").instance()
-				railgun_cooldown = 2
-				character.railgun_ammo -= 1
-			elif rocket_cooldown <= 0 and character.rocket_ammo > 0:
-				bullet = preload("res://Nodes/Missile.tscn").instance()
-				rocket_cooldown = 0.5
-				character.rocket_ammo -= 1
-			
-			if bullet:
-				bullet.position = position
-				bullet.rotation = rotation
-				bullet.attacker = self
-				bullet.modulate = color
-			
-			get_parent().get_parent().add_child(bullet)
-			
-			state = EXPLORE
+	state.process(delta)
 	
 	velocity = (velocity + next_step(delta)).clamped(MAX_SPEED)
 	
@@ -240,6 +168,9 @@ func astar(target, source = closest_v(position)): # source = closest_v(position)
 		path.append(cur.pos)
 		cur = cur.previous
 	path.invert()
+	
+	$Path.path = path
+	$Path.update()
 
 func add_astar_neigbor(point, target, add_pos, add_g, to_visit, visited):
 	var p = point.pos + add_pos
@@ -296,3 +227,29 @@ func get_closest_bot():
 				min_bot = bot
 	
 	return min_bot
+
+func shoot_railgun(at):
+	var bullet = preload("res://Nodes/RailgunBullet.tscn").instance()
+	character.railgun_cooldown = 2
+	character.railgun_ammo -= 1
+	rotation = (at.position - position).angle()
+	
+	bullet.position = position
+	bullet.rotation = rotation
+	bullet.attacker = self
+	bullet.modulate = color
+
+	$"../..".add_child(bullet)
+
+func shoot_missile(at):
+	var bullet = preload("res://Nodes/Missile.tscn").instance()
+	character.rocket_cooldown = 0.5
+	character.rocket_ammo -= 1
+	rotation = (at.position - position).angle()
+	
+	bullet.position = position
+	bullet.rotation = rotation
+	bullet.attacker = self
+	bullet.modulate = color
+
+	$"../..".add_child(bullet)

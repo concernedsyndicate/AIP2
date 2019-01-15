@@ -1,13 +1,28 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Bot.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Bot.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Character.gd" type="Script" id=3]
-[ext_resource path="res://Sprites/Indicator.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/States.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/Indicator.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 
 radius = 30.0
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends Node2D
+
+var path = []
+
+func _process(delta):
+	global_position = Vector2()
+	global_rotation = 0
+
+func _draw():
+	for i in path.size()-1:
+		draw_line(path[i], path[i+1], get_parent().color)"
 
 [node name="Bot" type="Area2D" groups=[
 "monsters",
@@ -27,6 +42,9 @@ shape = SubResource( 1 )
 [node name="Character" type="Node" parent="."]
 script = ExtResource( 3 )
 
+[node name="State" type="Node" parent="."]
+script = ExtResource( 4 )
+
 [node name="Health" type="TextureProgress" parent="."]
 modulate = Color( 0.556863, 1, 0.552941, 1 )
 anchor_left = 0.5
@@ -41,7 +59,7 @@ rect_rotation = 90.0
 rect_pivot_offset = Vector2( 36, 36 )
 max_value = 200.0
 value = 50.0
-texture_progress = ExtResource( 4 )
+texture_progress = ExtResource( 5 )
 
 [node name="Armor" type="TextureProgress" parent="."]
 modulate = Color( 0.815686, 0.329412, 1, 1 )
@@ -57,5 +75,9 @@ rect_rotation = -90.0
 rect_pivot_offset = Vector2( 36, 36 )
 max_value = 200.0
 value = 50.0
-texture_progress = ExtResource( 4 )
+texture_progress = ExtResource( 5 )
+
+[node name="Path" type="Node2D" parent="."]
+show_behind_parent = true
+script = SubResource( 2 )
 
