@@ -20,6 +20,7 @@ var current_obstacle = {}
 var speed = 1
 
 var target
+var thread
 
 var arrived_at_path_end = false
 
@@ -253,3 +254,23 @@ func shoot_missile(at):
 	bullet.modulate = color
 
 	$"../..".add_child(bullet)
+
+func can_reach(at):
+	var pos = position
+	var rot = (at.position - position).angle()
+	
+	for i in 1000:
+		pos += Vector2(cos(rot), sin(rot)) * 10
+		
+		var col = game.is_colliding(pos, null, self)
+		if col and typeof(col) != TYPE_BOOL and col == at:
+			return true
+	
+	return false
+
+func start_astar():
+	if thread:
+		thread.wait_to_finish()
+	
+	thread = Thread.new()
+	thread.start(self, "astar", target)

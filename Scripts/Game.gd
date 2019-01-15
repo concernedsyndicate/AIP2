@@ -56,6 +56,8 @@ func is_colliding(point, damage, attacker):
 		if bot == attacker: continue
 		
 		if (point - bot.position).length_squared() < COLLISION_RADIUS:
+			if !damage: return bot
+			
 			bot.character.damage(damage)
 			
 			if bot.character.health <= 0:
@@ -63,8 +65,12 @@ func is_colliding(point, damage, attacker):
 				if bot_id == bot.get_index() + 1: bot_id -= 1
 				bot.character.health = 100
 				bot.character.armor = 0
-				bot.character.railgun_ammo = 5
-				bot.character.rocket_ammo = 5
+				bot.character.railgun_ammo = 0
+				bot.character.rocket_ammo = 0
+				
+				bot.target = null
+				bot.path.clear()
+				bot.state.state = bot.state.EXPLORE
 				
 				to_respawn[bot] = 3
 			

@@ -7,8 +7,8 @@ var skin = 0
 var health = 100 setget set_health
 var armor = 0 setget set_armor
 
-var railgun_ammo = 5
-var rocket_ammo = 5
+var railgun_ammo = 0
+var rocket_ammo = 0
 
 var railgun_cooldown = 0
 var rocket_cooldown = 0
