@@ -17,11 +17,15 @@ var thread
 
 var arrived_at_path_end = false
 
+var id
 var color
+
+var mutex = Mutex.new()
 
 func _ready():
 	rotation = randf() * PI*2
-	color = [Color.red, Color.blue, Color.green, Color.yellow][get_index()]
+	id = get_index()
+	color = [Color.red, Color.blue, Color.green, Color.yellow][id]
 
 func _process(delta):
 	state.process(delta)
@@ -30,7 +34,8 @@ func _process(delta):
 	
 	position += velocity * delta
 	call_deferred("declip")
-	rotation = velocity.angle()
+	if velocity.length_squared() > 1:
+		rotation = velocity.angle()
 	
 	update()
 
@@ -93,11 +98,13 @@ func astar(target, source = closest_v(position)): # source = closest_v(position)
 		add_astar_neigbor(cur, target, Vector2(-64, -64), 14, to_visit, visited)
 		add_astar_neigbor(cur, target, Vector2(-64, 64), 14, to_visit, visited)
 	
+	mutex.lock()
 	path.clear()
 	while cur.previous:
 		path.append(cur.pos)
 		cur = cur.previous
 	path.invert()
+	mutex.unlock()
 	
 	$Path.path = path
 	$Path.update()
@@ -114,18 +121,23 @@ onready var follow_target = position
 const FOLLOW_PATH_TOLERANCE = pow(3, 2)
 
 func follow_path():
+	if mutex.try_lock() == ERR_BUSY: return seek(position)
+	
 	if !path.empty():
 		follow_target = path.front()
 		if (position - path.front()).length_squared() <= FOLLOW_PATH_TOLERANCE:
 			path.pop_front()
 			if path.empty():
 				arrived_at_path_end = true
+				mutex.unlock()
 				return seek(position)
 			
 			follow_target = path.front()
 		
+		mutex.unlock()
 		return seek(follow_target)
 	else:
+		mutex.unlock()
 		return seek(position)
 
 func closest_v(pos):

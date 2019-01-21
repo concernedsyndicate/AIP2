@@ -55,6 +55,7 @@ shape = SubResource( 3 )
 shape = SubResource( 4 )
 
 [node name="Bots" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Bot" parent="Bots" instance=ExtResource( 4 )]
 position = Vector2( 896, 448 )
@@ -261,6 +262,7 @@ position = Vector2( 1376, 192 )
 position = Vector2( 1344, 2752 )
 
 [node name="BotSpawners" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Spawner" type="Position2D" parent="BotSpawners"]
 position = Vector2( 2496, 1024 )
@@ -273,4 +275,38 @@ position = Vector2( 2624, 2688 )
 
 [node name="Spawner4" type="Position2D" parent="BotSpawners"]
 position = Vector2( 640, 2432 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Score1" type="Label" parent="UI"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 56.0
+margin_bottom = 30.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "0"
+
+[node name="Score2" type="Label" parent="UI"]
+margin_left = 64.0
+margin_top = 16.0
+margin_right = 104.0
+margin_bottom = 30.0
+custom_colors/font_color = Color( 0, 0.0627451, 1, 1 )
+text = "0"
+
+[node name="Score3" type="Label" parent="UI"]
+margin_left = 112.0
+margin_top = 16.0
+margin_right = 152.0
+margin_bottom = 30.0
+custom_colors/font_color = Color( 0, 1, 0.133333, 1 )
+text = "0"
+
+[node name="Score4" type="Label" parent="UI"]
+margin_left = 160.0
+margin_top = 16.0
+margin_right = 200.0
+margin_bottom = 30.0
+custom_colors/font_color = Color( 1, 0.984314, 0, 1 )
+text = "0"
 

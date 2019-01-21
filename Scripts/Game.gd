@@ -5,6 +5,7 @@ onready var bots = $Bots
 onready var spawners = $BotSpawners
 
 var bot_id = 0
+var scores = [0, 0, 0, 0]
 
 var navigation = {}
 
@@ -69,6 +70,9 @@ func is_colliding(point, damage, attacker, radius = COLLISION_RADIUS):
 				bot.character.rocket_ammo = 0
 				
 				to_respawn[bot] = 3
+				
+				scores[attacker.id] += 1
+				update_scores()
 			
 			return 10
 
@@ -88,7 +92,7 @@ func _process(delta):
 		camera.zoom = Vector2(1, 1)
 		camera.position += (bots.get_child(bot_id-1).position - camera.position)/10
 	else:
-		camera.zoom = Vector2(2.5, 2.5)
+		camera.zoom = Vector2(2.65, 2.65)
 		var average = Vector2()
 		for bot in bots.get_children():
 			average += bot.position
@@ -115,3 +119,7 @@ func _input(event):
 func _draw():
 	for point in navigation:
 		draw_circle(point, 2, Color.white)
+
+func update_scores():
+	for i in 4:
+		get_node("UI/Score" + str(i+1)).text = str(scores[i])
