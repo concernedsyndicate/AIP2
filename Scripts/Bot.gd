@@ -265,6 +265,8 @@ func can_reach(at):
 		var col = game.is_colliding(pos, null, self)
 		if col and typeof(col) != TYPE_BOOL and col == at:
 			return true
+		elif col and typeof(col) == TYPE_BOOL:
+			return false
 	
 	return false
 

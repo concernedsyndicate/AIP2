@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Sprites/Explosion.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node2D
+
+onready var s = $Sprite
+
+onready var game = get_parent()
+
+var attacker
+
+func _physics_process(delta):
+	s.scale.x -= delta*3
+	s.scale.y -= delta*3
+	
+	var col = game.is_colliding(position, 65 * (1 - s.scale.x), attacker, pow(s.scale.x * 96, 2))
+	if s.scale.x <= 0 or (col and typeof(col) != TYPE_BOOL):
+		queue_free()"
+
+[node name="Missile" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+rotation = 1.5708
+texture = ExtResource( 1 )
+region_rect = Rect2( 89.25, 9.902, 14.5, 40.5 )
+

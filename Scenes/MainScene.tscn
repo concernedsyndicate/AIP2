@@ -82,140 +82,140 @@ __meta__ = {
 }
 
 [node name="Polygon2D" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 0, 0, 3200, 0, 0, 128 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 0, 0, 3200, 0, 0, 128 )
 
 [node name="Polygon2D2" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 3200, 0, 3200, 128, 0, 128 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 3200, 0, 3200, 128, 0, 128 )
 
 [node name="Polygon2D3" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 0, 128, 1152, 128, 0, 640 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 0, 128, 1152, 128, 0, 640 )
 
 [node name="Polygon2D4" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 0, 640, 576, 384, 576, 1600 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 0, 640, 576, 384, 576, 1600 )
 
 [node name="Polygon2D5" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 0, 640, 576, 1600, 0, 1600 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 0, 640, 576, 1600, 0, 1600 )
 
 [node name="Polygon2D6" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 896, 768, 1536, 512, 2048, 512 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 896, 768, 1536, 512, 2048, 512 )
 
 [node name="Polygon2D7" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 896, 768, 2048, 512, 2048, 1024 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 896, 768, 2048, 512, 2048, 1024 )
 
 [node name="Polygon2D8" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 896, 768, 896, 1024, 2048, 1024 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 896, 768, 896, 1024, 2048, 1024 )
 
 [node name="Polygon2D9" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 896, 1024, 896, 1600, 1024, 1024 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 896, 1024, 896, 1600, 1024, 1024 )
 
 [node name="Polygon2D10" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 896, 1600, 1024, 1024, 1024, 1600 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 896, 1600, 1024, 1024, 1024, 1600 )
 
 [node name="Polygon2D11" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 1792, 128, 2304, 256, 2304, 128 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 1792, 128, 2304, 256, 2304, 128 )
 
 [node name="Polygon2D12" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 2304, 128, 2304, 640, 2560, 128 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 2304, 128, 2304, 640, 2560, 128 )
 
 [node name="Polygon2D13" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 2304, 640, 2560, 128, 2560, 640 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 2304, 640, 2560, 128, 2560, 640 )
 
 [node name="Polygon2D14" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 2560, 128, 2560, 256, 3072, 128 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 2560, 128, 2560, 256, 3072, 128 )
 
 [node name="Polygon2D15" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 3072, 128, 3072, 3200, 3200, 128 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 3072, 128, 3072, 3200, 3200, 128 )
 
 [node name="Polygon2D16" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 3072, 3200, 3200, 3200, 3200, 128 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 3072, 3200, 3200, 3200, 3200, 128 )
 
 [node name="Polygon2D17" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 3072, 768, 2816, 512, 3072, 512 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 3072, 768, 2816, 512, 3072, 512 )
 
 [node name="Polygon2D18" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 2816, 512, 2816, 768, 3072, 768 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 2816, 512, 2816, 768, 3072, 768 )
 
 [node name="Polygon2D19" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 0, 1600, 128, 1600, 0, 3200 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 0, 1600, 128, 1600, 0, 3200 )
 
 [node name="Polygon2D20" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 0, 3200, 128, 1600, 128, 3200 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 0, 3200, 128, 1600, 128, 3200 )
 
 [node name="Polygon2D21" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 128, 2816, 128, 3200, 1664, 2816 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 128, 2816, 128, 3200, 1664, 2816 )
 
 [node name="Polygon2D22" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 128, 3200, 1664, 2816, 1664, 3200 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 128, 3200, 1664, 2816, 1664, 3200 )
 
 [node name="Polygon2D23" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 1664, 2816, 1408, 2816, 1408, 2432 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 1664, 2816, 1408, 2816, 1408, 2432 )
 
 [node name="Polygon2D24" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 1408, 2432, 1664, 2432, 1664, 2816 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 1408, 2432, 1664, 2432, 1664, 2816 )
 
 [node name="Polygon2D25" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 896, 1600, 1024, 1600, 896, 2048 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 896, 1600, 1024, 1600, 896, 2048 )
 
 [node name="Polygon2D26" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 1024, 1600, 1664, 2048, 896, 2048 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 1024, 1600, 1664, 2048, 896, 2048 )
 
 [node name="Polygon2D27" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 1472, 1600, 2112, 2048, 2112, 1600 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 1472, 1600, 2112, 2048, 2112, 1600 )
 
 [node name="Polygon2D28" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 1472, 1600, 1472, 1344, 2688, 1344 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 1472, 1600, 1472, 1344, 2688, 1344 )
 
 [node name="Polygon2D29" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 1472, 1600, 2688, 1344, 2688, 1600 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 1472, 1600, 2688, 1344, 2688, 1600 )
 
 [node name="Polygon2D30" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 1664, 3200, 3072, 3200, 3072, 2944 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 1664, 3200, 3072, 3200, 3072, 2944 )
 
 [node name="Polygon2D31" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 1664, 3200, 1664, 2944, 3072, 2944 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 1664, 3200, 1664, 2944, 3072, 2944 )
 
 [node name="Polygon2D32" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 2112, 1600, 2112, 2560, 2304, 2560 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 2112, 1600, 2112, 2560, 2304, 2560 )
 
 [node name="Polygon2D33" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 2112, 1600, 2304, 1600, 2304, 2560 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 2112, 1600, 2304, 1600, 2304, 2560 )
 
 [node name="Polygon2D34" type="Polygon2D" parent="Geometry"]
-polygon = PoolVector2Array( 3072, 2560, 2560, 2176, 3072, 1792 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 3072, 2560, 2560, 2176, 3072, 1792 )
 
 [node name="PowerUps" type="Node2D" parent="."]
 editor/display_folded = true

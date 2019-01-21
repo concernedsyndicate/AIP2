@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Sprites/Ammo.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Missile.png" type="Texture" id=1]
 
 [sub_resource type="GDScript" id=1]
 
@@ -14,7 +14,14 @@ func _physics_process(delta):
 	for i in 2:
 		position += Vector2(cos(rotation), sin(rotation)) * 10
 		
-		if game.is_colliding(position, 65, attacker):
+		var col = game.is_colliding(position, 65, attacker)
+		if col:
+			if typeof(col) == TYPE_BOOL:
+				var explo = preload(\"res://Nodes/MissileExplosion.tscn\").instance()
+				explo.attacker = attacker
+				explo.position = position
+				explo.modulate = modulate
+				get_parent().add_child(explo)
 			queue_free()"
 
 [node name="Missile" type="Node2D"]
@@ -23,6 +30,5 @@ script = SubResource( 1 )
 [node name="Ammo" type="Sprite" parent="."]
 rotation = 1.5708
 texture = ExtResource( 1 )
-region_enabled = true
 region_rect = Rect2( 89.25, 9.902, 14.5, 40.5 )
 
