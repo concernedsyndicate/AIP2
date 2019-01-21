@@ -17,6 +17,8 @@ func process(delta):
 			restock()
 		ATTACK:
 			attack()
+		FLEE:
+			flee()
 		
 func explore():
 	if !bot.target:
@@ -28,14 +30,17 @@ func explore():
 	if randf() < 0.01:
 		bot.target = null
 	
-	if randf() < 0.01:
-		bot.target = null
+	var closest = bot.get_closest_bot()
+	if closest and bot.can_reach(closest):
+		bot.target = closest
 		state = ATTACK
 	
 	if character.health < 20:
+		bot.target = null
 		state = HEAL
 	
-	if character.rocket_ammo < 2 and character.railgun_ammo < 2:
+	if character.rocket_ammo == 0 and character.railgun_ammo == 0:
+		bot.target = null
 		state = RESTOCK
 
 func heal():
@@ -61,6 +66,17 @@ func restock():
 		state = EXPLORE
 
 func attack():
+	var bot2 = bot.get_closest_bot()
+	
+	if bot2 and bot.can_reach(bot2):
+		if character.railgun_cooldown <= 0 and character.railgun_ammo > 0:
+			bot.shoot_railgun(bot2)
+		elif character.rocket_cooldown <= 0 and character.rocket_ammo > 0:
+			bot.shoot_missile(bot2)
+	
+	state = EXPLORE
+
+func flee():
 	var bot2 = bot.get_closest_bot()
 	
 	if bot2 and bot.can_reach(bot2):

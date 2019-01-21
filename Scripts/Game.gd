@@ -68,10 +68,6 @@ func is_colliding(point, damage, attacker, radius = COLLISION_RADIUS):
 				bot.character.railgun_ammo = 0
 				bot.character.rocket_ammo = 0
 				
-				bot.target = null
-				bot.path.clear()
-				bot.state.state = bot.state.EXPLORE
-				
 				to_respawn[bot] = 3
 			
 			return 10
@@ -105,6 +101,10 @@ func _process(delta):
 			var pos = spawners.get_child(randi() % spawners.get_child_count()).position
 			
 			respawn.position = pos
+			respawn.target = null
+			respawn.path.clear()
+			respawn.state.state = respawn.state.EXPLORE
+			
 			bots.add_child(respawn)
 			to_respawn.erase(respawn)
 
